@@ -1,3 +1,4 @@
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -11,11 +12,13 @@ public class Ship extends Canvas{
     private GraphicsContext gc;
     private int speed;
     private Color color;
+    private Group root;
 
 
-    public Ship(float x, float y, Color color, int speed)
+    public Ship(float x, float y, Color color, int speed, Group root)
     {
         super (60,60);
+        this.root = root;
         this.setLayoutX(x);
         this.setLayoutY(y);
 
@@ -36,6 +39,7 @@ public class Ship extends Canvas{
         KeyCode k = evt.getCode();
         if (k == KeyCode.LEFT) goLeft();
         if (k == KeyCode.RIGHT) goRight();
+        if (k == KeyCode.SPACE) shoot();
 
     }
 
@@ -46,6 +50,10 @@ public class Ship extends Canvas{
     private void goLeft() {
         this.setLayoutX(this.getLayoutX() - speed);
 
+    }
+    private void shoot(){
+        //Shot shot = new Shot(this.getLayoutX(), this.getLayoutY(),speed);
+        root.getChildren().add(new Shot(this.getLayoutX(), this.getLayoutY(),speed,root));
     }
 
     private void Draw() {
