@@ -44,31 +44,29 @@ public class RowOfMonsters extends Group {
         ArrayList<Bounds> shots = new ArrayList<Bounds>();
         for (int i = 0; i< root.getChildren().size(); i++) {
             if (root.getChildren().get(i).getClass() == Shot.class) {
-                //shots.add(root.getChildren().get(i).localToScene(getBoundsInLocal()));
                 System.out.println("shots");
-                //System.out.println(root.getChildren().get(i).localToScene(getBoundsInLocal()));
-                //System.out.println(root.getChildren().get(i).getLayoutBounds());
+                shots.add(root.getChildren().get(i).getBoundsInParent());
+
             }
         }
 
-       // for (int i = 0; i<m.length; i++)
-       // {
-       //     for (int j = 0; j<shots.size(); j++){
-       //         if (m[i].intersects(shots.get(j))){
-       //             System.out.println("Monster " + i + " hit!");
-       //         }
-       //     }
-       // }
 
         for (int i = 0; i<this.getChildren().size(); i++)
         {
+            double minX = m[i].getParent().getLocalToSceneTransform().getTx() + x*i + 50;
+            double minY = 30;
+            double minZ = 0;
+            double width = 20;
+            double height = 20;
+
+            //System.out.println(m[i].getParent().getLocalToSceneTransform().getTx());
             for (int j = 0; j<shots.size(); j++)
-                if (this.getChildren().get(i).localToScene(getBoundsInLocal()).intersects(shots.get(j)))
+                if (shots.get(j).intersects(minX,minY,width,height))
                 {
                     System.out.println(this.getChildren().get(i).getClass().toString());
                     System.out.println("Monster " + i + " hit!");
-                    //m[i].setAlive(false);
-                    //this.getChildren().remove(m[i]);
+                    m[i].setAlive(false);
+                    m[i].draw();
 
                 }
         }
@@ -79,12 +77,15 @@ public class RowOfMonsters extends Group {
         setLayoutX(getLayoutX() + (speed * direction));
         if (getLayoutX()>80) direction = -1;
         if (getLayoutX()<-40) direction = 1;
+        //System.out.println(m[1].getParent().getLocalToSceneTransform().getTx());
+
+        //Bounds b = new Bounds(minX, minY, minZ, width, height);
     }
 
     private void addMonsters() {
         m = new Monster[num];
         for (int i = 0; i < num; i++){
-            m[i] = new Monster((x*(i)+50),50,this, Color.YELLOW);
+            m[i] = new Monster((x*(i)+50),30,this.root, Color.YELLOW);
             this.getChildren().add(m[i]);
 
 

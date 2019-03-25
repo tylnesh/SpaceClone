@@ -32,7 +32,7 @@ public class Monster extends Canvas {
     Group root;
 
     public Monster(int x, int y, Group root, Color color){
-        super(x,y);
+        super(20,20);
         this.color = color;
         this.root = root;
         this.setLayoutX(x);
@@ -57,11 +57,11 @@ public class Monster extends Canvas {
         {
             System.out.println("Monster Says Draw!");
             gc.setFill(color);
-            gc.fillRect(20,20,20,20);
+            gc.fillRect(0,0,20,20);
 
         }
         else{
-            gc.clearRect(20,20,20,20);
+            gc.clearRect(0,0,20,20);
         }
 
     }

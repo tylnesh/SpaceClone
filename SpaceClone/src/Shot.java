@@ -19,16 +19,12 @@ public class Shot extends Canvas {
 
     public Shot(double x, double y, int speed, Group root) {
 
-        super(20,20) ;
-        System.out.println("Shot created");
-        System.out.println("X:" + x);
-        System.out.println("Y:" + y);
-        //System.out.println(this.getBoundsInLocal());
+        super(5,20) ;
         this.root = root;
-        this.x = x;
+        this.x = x+15 ;
         this.y = y;
-        setLayoutX(x);
-        setLayoutY(y);
+        setLayoutX(this.x);
+        setLayoutY(this.y);
         this.speed = speed;
         gc = getGraphicsContext2D();
         timeline  = new Timeline( new KeyFrame(Duration.millis(100), e->handle()));
@@ -68,7 +64,7 @@ public class Shot extends Canvas {
     private void draw() {
         gc.clearRect(0,0,getWidth(), getHeight());
         gc.setFill(Color.ORANGE);
-        gc.fillRect(5,5,5,20);
+        gc.fillRect(0,5,5,20);
     }
 
 
